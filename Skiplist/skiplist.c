@@ -22,8 +22,6 @@ Skiplist new_skiplist()
 void skiplist_insert(Skiplist *self, int data)
 {
 	SkipNodePtr current = self->header;
-
-
 	SkipNodePtr new_node = malloc(sizeof(SkipNodePtr));
 	int level_track = rand_level();
 
