@@ -23,6 +23,7 @@ int main()
 	if (found){
 		printf("found %d\n", found->data);
 	} else printf("not found\n");
-
+	skiplist_delete(&list, 7);
+	skiplist_print(&list);
 	return 0;
 }

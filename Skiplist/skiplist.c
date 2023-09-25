@@ -22,11 +22,11 @@ Skiplist new_skiplist()
 void skiplist_insert(Skiplist *self, int data)
 {
 	SkipNodePtr current = self->header;
-	SkipNodePtr new_node = malloc(sizeof(SkipNodePtr));
+	SkipNodePtr new_node = malloc(sizeof * new_node);
 	int level_track = rand_level();
-
-	new_node->next = malloc(sizeof *new_node->next * level_track);
 	new_node->data = data;
+	new_node->next = malloc(sizeof *new_node->next * level_track);
+	
 
 	int i;
 	for (i = self->max_levels-1; i >= 0; i--)
@@ -80,5 +80,31 @@ int rand_level()
 
 void skiplist_delete(Skiplist *self, int data) {
 	// TODO
+
+	
+	SkipNodePtr target = NULL;
+	SkipNodePtr current = self->header;
+
+	int i;
+
+	for (i = self->max_levels - 1; i >= 0; i--)
+	{
+		while (current->next[i] != NULL && current->next[i]->data < data)
+		{
+
+			current = current->next[i];
+		}
+		if (current->next[i] != NULL && current->next[i]->data == data)
+		{
+			target = current->next[i];
+			current->next[i] = current->next[i]->next[i];
+
+		}
+
+	}
+
+	free(target->next);
+	free(target);
+
 }
 
